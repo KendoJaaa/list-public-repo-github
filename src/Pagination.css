@@ -1,0 +1,19 @@
+
+.pagination {
+  display: flex;
+  margin-top: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination__button {
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+.pagination__button:hover {
+  background-color: lightgray;
+}
