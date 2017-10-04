@@ -4,9 +4,12 @@ import React, { Component } from 'react'
 
 import Pagination from './Pagination'
 import Table from './Table'
+import _ from 'lodash'
 import axios from 'axios'
 
 class App extends Component {
+  
+  maxpage = 0;
 
   state = {
     currentPage: 1,
@@ -14,25 +17,37 @@ class App extends Component {
   }
 
   componentWillMount () {
-    axios.get('https://api.github.com/repositories').then((response) => {
-      this.setState({ data: response.data })
+    this.fecthData()
+  }
+
+  fecthData = () => {
+    let url = 'https://api.github.com/repositories'
+    if (!_.isEmpty(this.state.data)) {
+      url += '?since=' + _.last(this.state.data).id
+    }
+    axios.get(url).then((response) => {
+      const data = _.concat(this.state.data, response.data)
+      this.setState({ data })
+      this.maxpage = _.floor(data.length / 10)
     })
   }
 
   onPreviousPage = () => {
     if (this.state.currentPage === 1) return
-    this.setState({ currentPage: this.state.currentPage -1 })
+    this.setState({ currentPage: this.state.currentPage - 1 })
   }
 
   onNextPage = () => {
-    console.log('kendo jaa click')
-    this.setState({ currentPage: this.state.currentPage + 1 })
+    const nextPage = this.state.currentPage + 1
+    this.setState({ currentPage: nextPage  })
+    if (nextPage > this.maxpage) {
+      this.fecthData()
+    }
   }
 
   getDataByPage = () => {
     const startingRecord = (this.state.currentPage * 10) - 10
-    console.log('kendo jaa', startingRecord)
-    return this.state.data.slice(startingRecord, startingRecord + 10)
+    return _.slice(this.state.data, startingRecord, startingRecord + 10)
   }
 
   render () {
