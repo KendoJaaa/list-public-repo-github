@@ -1,10 +1,12 @@
 table, th, td {
   border: 1px solid gray;
   border-collapse: collapse;
+  padding: 7px;
 }
 
 .table {
   margin: auto;
+  min-height: 550px;
 }
 
 .table__header {
@@ -34,4 +36,11 @@ table, th, td {
 
 .table__description {
   width: 800px;
+}
+
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(50%, 50%)
 }
