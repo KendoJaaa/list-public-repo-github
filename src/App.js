@@ -54,12 +54,18 @@ class App extends Component {
     return (
       <div className='app'> 
         <div className='app__header'>Github Public Repositories</div>
-        <Table data={this.getDataByPage()} />
-        <Pagination 
-          currentPage={this.state.currentPage}
-          onPrevious={this.onPreviousPage}
-          onNext={this.onNextPage}
-        />
+        { !_.isEmpty(this.getDataByPage()) 
+          ? (
+            <div>
+              <Table data={this.getDataByPage()} />
+              <Pagination 
+                currentPage={this.state.currentPage}
+                onPrevious={this.onPreviousPage}
+                onNext={this.onNextPage}
+              />
+            </div>
+          ) : <div className='app__loading'> 'Loading...' </div>
+        }
       </div>
     )
   } 
