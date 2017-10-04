@@ -12,7 +12,7 @@ class Table extends Component {
 
   renderHeader = () => {
     return (
-      <tr>
+      <tr className='table__header'>
         <th>Name</th>
         <th>Owner</th>
         <th>Description</th>
@@ -22,13 +22,15 @@ class Table extends Component {
 
   renderRow = (data) => {
     return (
-      <tr>
-        <td>{data.name}</td>
+      <tr className='table__row'>
+        <td className='table__name'>{data.name}</td>
         <td>
-          <img src={data.owner.avatar_url} />
-          {data.owner.login}
+          <div className='table__owner'>
+            <img src={data.owner.avatar_url} className='table__owner__avatar' />
+            <div className='table__owner__name'>{data.owner.login}</div>
+          </div>
         </td>
-        <td>{data.description}</td>
+        <td className='table__description'>{data.description}</td>
       </tr>
       
     )
@@ -40,7 +42,7 @@ class Table extends Component {
 
   render() {
     return (
-      <table>
+      <table className='table'>
         {this.renderHeader()}
         {this.renderBody()}
       </table>

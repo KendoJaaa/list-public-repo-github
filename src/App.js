@@ -20,8 +20,8 @@ class App extends Component {
 
   render () {
     return (
-      <div> 
-        <div>Github Public Repositories</div>
+      <div className='app'> 
+        <div className='app__header'>Github Public Repositories</div>
         <Table data={this.state.showData} />
       </div>
     )
