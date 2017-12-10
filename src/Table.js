@@ -20,9 +20,9 @@ class Table extends Component {
     )
   }
 
-  renderRow = (data) => {
+  renderRow = (data, index) => {
     return (
-      <tr className='table__row'>
+      <tr key={index} className='table__row'>
         <td className='table__name'>{data.name}</td>
         <td>
           <div className='table__owner'>
@@ -37,7 +37,7 @@ class Table extends Component {
   }
 
   renderBody = () => {
-    return this.props.data.map((data) => this.renderRow(data))
+    return this.props.data.map((data, index) => this.renderRow(data, index))
   }
 
   render() {
