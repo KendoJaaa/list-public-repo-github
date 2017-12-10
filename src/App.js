@@ -3,21 +3,30 @@ import './App.css'
 import React, { Component } from 'react'
 
 import Pagination from './Pagination'
+import PropTypes from 'prop-types'
 import Table from './Table'
 import _ from 'lodash'
 import axios from 'axios'
 
 class App extends Component {
   
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  }
+
   maxpage = 0;
 
   state = {
-    currentPage: 1,
     data: []
   }
 
   componentWillMount () {
     this.fecthData()
+  }
+
+  getCurrentPage () {
+    return Number(this.props.match.params.pageId)
   }
 
   fecthData = () => {
@@ -33,33 +42,32 @@ class App extends Component {
   }
 
   onPreviousPage = () => {
-    if (this.state.currentPage === 1) return
-    this.setState({ currentPage: this.state.currentPage - 1 })
+    if (this.getCurrentPage() === 1) return
+    this.props.history.push('/' + (this.getCurrentPage() - 1))
   }
 
   onNextPage = () => {
-    const nextPage = this.state.currentPage + 1
-    this.setState({ currentPage: nextPage  })
+    const nextPage = this.getCurrentPage() + 1
+    this.props.history.push('/' + nextPage)
     if (nextPage > this.maxpage) {
       this.fecthData()
     }
   }
 
   getDataByPage = () => {
-    const startingRecord = (this.state.currentPage * 10) - 10
+    const startingRecord = (this.getCurrentPage() * 10) - 10
     return _.slice(this.state.data, startingRecord, startingRecord + 10)
   }
 
   render () {
     return (
       <div className='app'> 
-        <div className='app__header'>Github Public Repositories</div>
         { !_.isEmpty(this.getDataByPage()) 
           ? (
             <div>
               <Table data={this.getDataByPage()} />
               <Pagination 
-                currentPage={this.state.currentPage}
+                currentPage={this.getCurrentPage()}
                 onPrevious={this.onPreviousPage}
                 onNext={this.onNextPage}
               />
