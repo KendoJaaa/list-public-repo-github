@@ -60,19 +60,15 @@ class App extends Component {
     const nextPage = this.props.pageNumber + 1
     this.props.goToPage(nextPage)
   }
-
-  getDataByPage = () => {
-    const startingRecord = (this.props.pageNumber * 10) - 10
-    return _.slice(this.state.data, startingRecord, startingRecord + 10)
-  }
   
   render () {
+    const data = getDataByPage(this.state.data, this.props.pageNumber)
     return (
       <div className='app'> 
-        { !_.isEmpty(this.getDataByPage()) 
+        { !_.isEmpty(data) 
           ? (
             <div>
-              <Table data={this.getDataByPage()} />
+              <Table data={data} />
               <Pagination 
                 currentPage={this.props.pageNumber}
                 onPrevious={this.onPreviousPage}
@@ -84,6 +80,11 @@ class App extends Component {
       </div>
     )
   } 
+}
+
+export const getDataByPage = (data, pageNumber) => {
+  const startingRecord = (pageNumber * 10) - 10
+  return _.slice(data, startingRecord, startingRecord + 10)
 }
 
 export default App
