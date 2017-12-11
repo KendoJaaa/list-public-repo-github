@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export default class Loading extends Component {
   interval = null
@@ -8,29 +7,51 @@ export default class Loading extends Component {
     dotCount: 1
   }
 
-  componentDidMount () {
-    this.interval = setInterval(() => {
-      this.setState({ dotCount: this.state.dotCount === 3 ? 0 : this.state.dotCount + 1 })
-    }, 100)
-  }
-
-  componentWillUnmount () {
-    clearInterval(this.interval)
-  }
-  
   render () {
     return (
       <Container>
-        {'Loading' +  Array(this.state.dotCount).fill().map(() => '.').join('')}
+        <FirstChild />
+        <SecondChild />
+        <ThirdChild />
       </Container>
     )
-  } 
+  }
 }
 
-const Container = styled.div`
-  font-size: 28px;
+
+const Container = styled.span`
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: inline-flex;
+  margin: auto;
+  width: auto;
 `
+
+const bounce = keyframes`
+  0%, 80%, 100% { transform scale(0) }
+  40% { transform scale(1) }
+`
+
+const Child = styled.div`
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: #5E227F;
+  animation: ${bounce} 1.4s infinite ease-in-out both;
+`
+
+const FirstChild = Child.extend`
+  animation-delay: -0.32s;
+`;
+
+const SecondChild = Child.extend`
+  animation-delay: -0.16s;
+`;
+
+const ThirdChild = Child.extend`
+  animation-delay: 0;
+`;
+
