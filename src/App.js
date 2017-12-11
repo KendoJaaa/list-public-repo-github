@@ -5,6 +5,7 @@ import Pagination from './Pagination'
 import PropTypes from 'prop-types'
 import Table from './Table'
 import _ from 'lodash'
+import styled from 'styled-components'
 
 export default class App extends Component {
 
@@ -29,17 +30,31 @@ export default class App extends Component {
       <div> 
         { !_.isEmpty(this.props.data) 
           ? (
-            <div>
+            <Container>
+              <PaginationContainer>
+                <Pagination 
+                  currentPage={this.props.pageNumber}
+                  onPrevious={this.onPreviousPage}
+                  onNext={this.onNextPage}
+                />
+              </PaginationContainer>
               <Table data={this.props.data} />
-              <Pagination 
-                currentPage={this.props.pageNumber}
-                onPrevious={this.onPreviousPage}
-                onNext={this.onNextPage}
-              />
-            </div>
+            </Container>
           ) : <Loading />
         }
       </div>
     )
   } 
 }
+
+
+const Container = styled.div`
+  max-width: 1000px;
+  padding: 0 5%;
+  margin: 0 auto;
+`
+
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`

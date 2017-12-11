@@ -15,9 +15,9 @@ export default class Pagination extends Component {
     return (
       <Container>
         { this.props.currentPage !== 1 && 
-          <Button onClick={this.props.onPrevious}>Prev</Button>}
-        {this.props.currentPage}
-        <Button onClick={this.props.onNext}>Next</Button> 
+          <Button onClick={this.props.onPrevious}>{'<'}</Button>}
+        <PageNumber>{this.props.currentPage}</PageNumber>
+        <Button onClick={this.props.onNext}>{'>'}</Button> 
       </Container>
     )
   } 
@@ -25,19 +25,25 @@ export default class Pagination extends Component {
 
 const Container = styled.div`
   display: flex;
-  margin-top: 40px;
+  margin-bottom: 10px;
   align-items: center;
   justify-content: center;
 `
 const Button  = styled.div`
   cursor: pointer;
-  border: 1px solid gray;
+  border: 2px solid #5E227F;
   border-radius: 2px;
-  padding: 10px;
-  margin: 0 10px;
-  color: white;
-  background-color: #5E227F;
+  color: #5E227F;
+  font-weight: bold;
+  padding: 0 6px;
+  background-color: white;
   &:hover {
-    background-color: #511272;
+    background-color: #5E227F;
+    color: white;
   }
+`
+const PageNumber = styled.div`
+  width: 50px;
+  display: flex;
+  justify-content: center;
 `
