@@ -10,7 +10,13 @@ export default class AppContainer extends Component {
     return (
       <Router>
         <Container>
-          <AppHeader>Github Public Repositories</AppHeader>
+          <AppHeader>
+            <Logo 
+              alt=''
+              src={require('./logo.png')}
+            />
+            Github Public Repositories
+          </AppHeader>
           <Route exact path='/' render={() => <Redirect to='/1' />} />
           <Route exact path='/:pageNumber' render={
             ({ match, history }) => {
@@ -37,8 +43,15 @@ const Container = styled.div`
 `
 
 const AppHeader = styled.div`
-  text-align: center;
   font-size: 36px;
   margin: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
+const Logo = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+`

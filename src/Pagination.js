@@ -35,7 +35,9 @@ const Button  = styled.div`
   border-radius: 2px;
   padding: 10px;
   margin: 0 10px;
+  color: white;
+  background-color: #5E227F;
   &:hover {
-    background-color: lightgray;
+    background-color: #511272;
   }
 `

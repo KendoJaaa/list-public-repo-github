@@ -23,16 +23,15 @@ export default class Table extends Component {
 
   renderRow = (data, index) => {
     return (
-      <tr key={index} className='table__row'>
+      <tr key={index}>
         <Name>{data.name}</Name>
         <td>
-          <Owner className='table__owner'>
+          <Owner>
             <OwnerAvatar
               alt=''
               src={data.owner.avatar_url} 
-              className='table__owner__avatar' 
             />
-            <OwnerName className='table__owner__name'>{data.owner.login}</OwnerName>
+            <OwnerName>{data.owner.login}</OwnerName>
           </Owner>
         </td>
         <Description>{data.description}</Description>
@@ -72,7 +71,9 @@ const Container = styled.table`
   }
 `
 const Header = styled.tr`
-  background-color: lightgray;
+  color: white;
+  background-color: #5E227F;
+  line-height: 40px;
 `
 const Name = styled.td`
   width: 150px;
