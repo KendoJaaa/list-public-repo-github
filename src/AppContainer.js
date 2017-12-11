@@ -9,7 +9,7 @@ export default class AppContainer extends Component {
   render () {
     return (
       <Router>
-        <div>
+        <Container>
           <AppHeader>Github Public Repositories</AppHeader>
           <Route exact path='/' render={() => <Redirect to='/1' />} />
           <Route exact path='/:pageNumber' render={
@@ -26,11 +26,15 @@ export default class AppContainer extends Component {
               )
             }
           }/>
-        </div>
+        </Container>
       </Router>
     )
   } 
 }
+
+const Container = styled.div`
+  font-family: 'Open Sans', sans-serif;
+`
 
 const AppHeader = styled.div`
   text-align: center;
