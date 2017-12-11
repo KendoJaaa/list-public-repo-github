@@ -11,41 +11,32 @@ export default class Table extends Component {
 
   renderHeader = () => {
     return (
-      <thead>
-        <Header>
-          <th>Repo Name</th>
-          <th>Owner</th>
-          <th>Description</th>
-        </Header>
-      </thead>
+      <Header>
+        <Name>Repo Name</Name>
+        <Owner>Owner</Owner>
+        <Description>Description</Description>
+      </Header>
     )
   }
 
   renderRow = (data, index) => {
     return (
-      <tr key={index}>
+      <Row key={index}>
         <Name>{data.name}</Name>
-        <td>
-          <Owner>
-            <OwnerAvatar
-              alt=''
-              src={data.owner.avatar_url} 
-            />
-            <OwnerName>{data.owner.login}</OwnerName>
-          </Owner>
-        </td>
+        <Owner>
+          <OwnerAvatar
+            alt=''
+            src={data.owner.avatar_url} 
+          />
+          <OwnerName>{data.owner.login}</OwnerName>
+        </Owner>
         <Description>{data.description}</Description>
-      </tr>
-      
+      </Row>   
     )
   }
 
   renderBody = () => {
-    return (
-      <tbody>
-        {this.props.data.map((data, index) => this.renderRow(data, index))}
-      </tbody>
-    )
+    return this.props.data.map((data, index) => this.renderRow(data, index))
   }
 
   render() {
@@ -58,31 +49,37 @@ export default class Table extends Component {
   } 
 }
 
-const Container = styled.table`
-  border: 1px solid gray;
-  border-collapse: collapse;
-  padding: 7px;
+const Container = styled.div`
   margin: auto;
   min-height: 550px;
-  td, tr {
-    border: 1px solid gray;
-    border-collapse: collapse;
-    padding: 7px;
-  }
 `
-const Header = styled.tr`
+const Header = styled.div`
   color: white;
   background-color: #5E227F;
-  line-height: 40px;
+  display: flex;
+  padding: 10px;
+  font-weight: bold;
 `
-const Name = styled.td`
+
+const Row = styled.div`
+  display: flex;
+  border-bottom: 1px solid #5E227F;
+  padding: 10px;
+`
+
+const Name = styled.div`
   width: 150px;
-  word-break: break-all;  
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  word-break: break-all;
 `
 
 const Owner = styled.div`
+  width: 150px;
   display: flex;
   align-items: center;
+  padding-right: 10px;
 `
 
 const OwnerAvatar = styled.img`
@@ -92,10 +89,11 @@ const OwnerAvatar = styled.img`
 `
 
 const OwnerName = styled.div`
-  width: 150px;
   word-break: break-all;
 `
 
-const Description = styled.td`
-  width: 800px;
+const Description = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
 `
