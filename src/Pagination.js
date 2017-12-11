@@ -31,14 +31,14 @@ const Container = styled.div`
 `
 const Button  = styled.div`
   cursor: pointer;
-  border: 2px solid #5E227F;
+  border: 2px solid ${props => props.theme.main};
   border-radius: 2px;
-  color: #5E227F;
+  color: ${props => props.theme.main};
   font-weight: bold;
   padding: 0 6px;
   background-color: white;
   &:hover {
-    background-color: #5E227F;
+    background-color: ${props => props.theme.main};
     color: white;
   }
 `

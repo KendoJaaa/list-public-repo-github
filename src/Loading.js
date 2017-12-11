@@ -39,7 +39,7 @@ const Child = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 100%;
-  background-color: #5E227F;
+  background-color: ${props => props.theme.main};
   animation: ${bounce} 1.4s infinite ease-in-out both;
 `
 

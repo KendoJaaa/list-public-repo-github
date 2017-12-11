@@ -55,7 +55,7 @@ const Container = styled.div`
 `
 const Header = styled.div`
   color: white;
-  background-color: #5E227F;
+  background-color: ${props => props.theme.main};
   display: flex;
   padding: 10px;
   font-weight: bold;
@@ -63,7 +63,7 @@ const Header = styled.div`
 
 const Row = styled.div`
   display: flex;
-  border-bottom: 1px solid #5E227F;
+  border-bottom: 1px solid ${props => props.theme.main};
   padding: 10px;
 `
 

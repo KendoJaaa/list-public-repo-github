@@ -1,44 +1,50 @@
 import React, { Component } from 'react'
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import styled, { ThemeProvider } from 'styled-components'
 
 import App from './App'
 import AppData from './AppData'
-import styled from 'styled-components'
+
+const theme = {
+	main: '#5E227F'
+}
 
 export default class AppContainer extends Component {
   render () {
     return (
-      <Router>
-        <Container>
-          <AppHeader>
-            <Logo 
-              alt=''
-              src={require('./logo.png')}
-            />
-            Github Public Repositories
-          </AppHeader>
-          <Switch>
-            <Route exact path='/' render={() => <Redirect to='/1' />} />
-            <Route exact path='/:pageNumber' render={
-              ({ match, history }) => {
-                const pageNumber = Number(match.params.pageNumber)
-                if (isNaN(pageNumber)) return <Redirect to='/1' />
-                if (pageNumber < 1 || pageNumber > 100) return <Redirect to='/1' />
-                return (
-                  <AppData pageNumber={pageNumber}>
-                    {(data) => <App
-                      data={data}
-                      pageNumber={pageNumber}
-                      goToPage={(pageNumber) => history.push('/' + pageNumber)}
-                    />}
-                  </AppData>
-                )
-              }
-            }/>
-            <Redirect to="/1" />
-          </Switch>
-        </Container>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Container>
+            <AppHeader>
+              <Logo 
+                alt=''
+                src={require('./logo.png')}
+              />
+              Github Public Repositories
+            </AppHeader>
+            <Switch>
+              <Route exact path='/' render={() => <Redirect to='/1' />} />
+              <Route exact path='/:pageNumber' render={
+                ({ match, history }) => {
+                  const pageNumber = Number(match.params.pageNumber)
+                  if (isNaN(pageNumber)) return <Redirect to='/1' />
+                  if (pageNumber < 1 || pageNumber > 100) return <Redirect to='/1' />
+                  return (
+                    <AppData pageNumber={pageNumber}>
+                      {(data) => <App
+                        data={data}
+                        pageNumber={pageNumber}
+                        goToPage={(pageNumber) => history.push('/' + pageNumber)}
+                      />}
+                    </AppData>
+                  )
+                }
+              }/>
+              <Redirect to="/1" />
+            </Switch>
+          </Container>
+        </Router>
+      </ThemeProvider>
     )
   } 
 }
