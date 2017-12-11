@@ -44,6 +44,7 @@ const Container = styled.div`
 
 const AppHeader = styled.div`
   font-size: 36px;
+  font-weight: 600;
   margin: 50px;
   display: flex;
   align-items: center;
