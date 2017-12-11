@@ -14,7 +14,7 @@ class Table extends Component {
     return (
       <thead>
         <tr className='table__header'>
-          <th>Name</th>
+          <th>Repo Name</th>
           <th>Owner</th>
           <th>Description</th>
         </tr>
