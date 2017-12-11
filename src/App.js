@@ -37,14 +37,17 @@ class App extends Component {
       if (!_.isEmpty(this.state.data)) {
         url += '?since=' + _.last(this.state.data).id
       }
-      axios.get(url).then((response) => {
-        const data = _.concat(this.state.data, response.data)
-        this.setState({ data })
-        this.fetching = false
-        this.maxPage = _.floor(data.length / 10)
-        this.fetchData()
-      })
-
+      axios.get(url)
+        .then((response) => {
+          const data = _.concat(this.state.data, response.data)
+          this.setState({ data })
+          this.fetching = false
+          this.maxPage = _.floor(data.length / 10)
+          this.fetchData()
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
     }
   }
 
