@@ -12,11 +12,13 @@ class Table extends Component {
 
   renderHeader = () => {
     return (
-      <tr className='table__header'>
-        <th>Name</th>
-        <th>Owner</th>
-        <th>Description</th>
-      </tr>
+      <thead>
+        <tr className='table__header'>
+          <th>Name</th>
+          <th>Owner</th>
+          <th>Description</th>
+        </tr>
+      </thead>
     )
   }
 
@@ -26,7 +28,11 @@ class Table extends Component {
         <td className='table__name'>{data.name}</td>
         <td>
           <div className='table__owner'>
-            <img src={data.owner.avatar_url} className='table__owner__avatar' />
+            <img
+              alt=''
+              src={data.owner.avatar_url} 
+              className='table__owner__avatar' 
+            />
             <div className='table__owner__name'>{data.owner.login}</div>
           </div>
         </td>
@@ -37,7 +43,11 @@ class Table extends Component {
   }
 
   renderBody = () => {
-    return this.props.data.map((data, index) => this.renderRow(data, index))
+    return (
+      <tbody>
+        {this.props.data.map((data, index) => this.renderRow(data, index))}
+      </tbody>
+    )
   }
 
   render() {
