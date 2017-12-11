@@ -11,11 +11,9 @@ import axios from 'axios'
 class App extends Component {
   
   static propTypes = {
-    match: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    pageNumber: PropTypes.number.isRequired,
+    goToPage: PropTypes.func.isRequired
   }
-
-  maxpage = 0;
 
   state = {
     data: []
@@ -23,10 +21,6 @@ class App extends Component {
 
   componentWillMount () {
     this.fecthData()
-  }
-
-  getCurrentPage () {
-    return Number(this.props.match.params.pageId)
   }
 
   fecthData = () => {
@@ -42,23 +36,20 @@ class App extends Component {
   }
 
   onPreviousPage = () => {
-    if (this.getCurrentPage() === 1) return
-    this.props.history.push('/' + (this.getCurrentPage() - 1))
+    if (this.props.pageNumber === 1) return
+    this.props.goToPage(this.props.pageNumber - 1)
   }
 
   onNextPage = () => {
-    const nextPage = this.getCurrentPage() + 1
-    this.props.history.push('/' + nextPage)
-    if (nextPage > this.maxpage) {
-      this.fecthData()
-    }
+    const nextPage = this.props.pageNumber + 1
+    this.props.goToPage(nextPage)
   }
 
   getDataByPage = () => {
-    const startingRecord = (this.getCurrentPage() * 10) - 10
+    const startingRecord = (this.props.pageNumber * 10) - 10
     return _.slice(this.state.data, startingRecord, startingRecord + 10)
   }
-
+  
   render () {
     return (
       <div className='app'> 
@@ -67,7 +58,7 @@ class App extends Component {
             <div>
               <Table data={this.getDataByPage()} />
               <Pagination 
-                currentPage={this.getCurrentPage()}
+                currentPage={this.props.pageNumber}
                 onPrevious={this.onPreviousPage}
                 onNext={this.onNextPage}
               />
