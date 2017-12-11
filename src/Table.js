@@ -1,10 +1,9 @@
-import './Table.css'
-
 import React, { Component } from 'react'
 
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-class Table extends Component {
+export default class Table extends Component {
 
   static propTypes = {
     data: PropTypes.array.isRequired
@@ -13,11 +12,11 @@ class Table extends Component {
   renderHeader = () => {
     return (
       <thead>
-        <tr className='table__header'>
+        <Header>
           <th>Repo Name</th>
           <th>Owner</th>
           <th>Description</th>
-        </tr>
+        </Header>
       </thead>
     )
   }
@@ -25,18 +24,18 @@ class Table extends Component {
   renderRow = (data, index) => {
     return (
       <tr key={index} className='table__row'>
-        <td className='table__name'>{data.name}</td>
+        <Name>{data.name}</Name>
         <td>
-          <div className='table__owner'>
-            <img
+          <Owner className='table__owner'>
+            <OwnerAvatar
               alt=''
               src={data.owner.avatar_url} 
               className='table__owner__avatar' 
             />
-            <div className='table__owner__name'>{data.owner.login}</div>
-          </div>
+            <OwnerName className='table__owner__name'>{data.owner.login}</OwnerName>
+          </Owner>
         </td>
-        <td className='table__description'>{data.description}</td>
+        <Description>{data.description}</Description>
       </tr>
       
     )
@@ -52,12 +51,50 @@ class Table extends Component {
 
   render() {
     return (
-      <table className='table'>
+      <Container>
         {this.renderHeader()}
         {this.renderBody()}
-      </table>
+      </Container>
     )
   } 
 }
 
-export default Table
+const Container = styled.table`
+  border: 1px solid gray;
+  border-collapse: collapse;
+  padding: 7px;
+  margin: auto;
+  min-height: 550px;
+  td, tr {
+    border: 1px solid gray;
+    border-collapse: collapse;
+    padding: 7px;
+  }
+`
+const Header = styled.tr`
+  background-color: lightgray;
+`
+const Name = styled.td`
+  width: 150px;
+  word-break: break-all;  
+`
+
+const Owner = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const OwnerAvatar = styled.img`
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+`
+
+const OwnerName = styled.div`
+  width: 150px;
+  word-break: break-all;
+`
+
+const Description = styled.td`
+  width: 800px;
+`

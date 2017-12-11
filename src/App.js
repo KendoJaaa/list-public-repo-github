@@ -1,5 +1,3 @@
-import './App.css'
-
 import React, { Component } from 'react'
 
 import Loading from './Loading'
@@ -8,7 +6,7 @@ import PropTypes from 'prop-types'
 import Table from './Table'
 import _ from 'lodash'
 
-class App extends Component {
+export default class App extends Component {
 
   static propTypes = {
     data: PropTypes.array.isRequired,
@@ -28,7 +26,7 @@ class App extends Component {
   
   render () {
     return (
-      <div className='app'> 
+      <div> 
         { !_.isEmpty(this.props.data) 
           ? (
             <div>
@@ -45,5 +43,3 @@ class App extends Component {
     )
   } 
 }
-
-export default App

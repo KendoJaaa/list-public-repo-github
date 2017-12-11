@@ -1,10 +1,9 @@
-import './Pagination.css'
-
 import React, { Component } from 'react'
 
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-class Pagination extends Component {
+export default class Pagination extends Component {
 
   static propTypes = {
     currentPage: PropTypes.number.isRequired,
@@ -14,14 +13,29 @@ class Pagination extends Component {
 
   render() {
     return (
-      <div className='pagination'>
+      <Container>
         { this.props.currentPage !== 1 && 
-          <div className='pagination__button' onClick={this.props.onPrevious}>Prev</div>}
+          <Button onClick={this.props.onPrevious}>Prev</Button>}
         {this.props.currentPage}
-        <div className='pagination__button' onClick={this.props.onNext}>Next</div> 
-      </div>
+        <Button onClick={this.props.onNext}>Next</Button> 
+      </Container>
     )
   } 
 }
 
-export default Pagination
+const Container = styled.div`
+  display: flex;
+  margin-top: 40px;
+  align-items: center;
+  justify-content: center;
+`
+const Button  = styled.div`
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 10px;
+  margin: 0 10px;
+  &:hover {
+    background-color: lightgray;
+  }
+`

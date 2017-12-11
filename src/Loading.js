@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-class Loading extends Component {
+import styled from 'styled-components'
 
+export default class Loading extends Component {
   interval = null
-
   state = {
     dotCount: 1
   }
@@ -20,11 +20,17 @@ class Loading extends Component {
   
   render () {
     return (
-      <div className='app__loading'>
+      <Container>
         {'Loading' +  Array(this.state.dotCount).fill().map(() => '.').join('')}
-      </div>
+      </Container>
     )
   } 
 }
 
-export default Loading
+const Container = styled.div`
+  font-size: 28px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`

@@ -3,13 +3,14 @@ import { Redirect, Route, BrowserRouter as Router } from 'react-router-dom'
 
 import App from './App'
 import AppData from './AppData'
+import styled from 'styled-components'
 
-class AppContainer extends Component {
+export default class AppContainer extends Component {
   render () {
     return (
       <Router>
         <div>
-          <div className='app__header'>Github Public Repositories</div>
+          <AppHeader>Github Public Repositories</AppHeader>
           <Route exact path='/' render={() => <Redirect to='/1' />} />
           <Route exact path='/:pageNumber' render={
             ({ match, history }) => {
@@ -31,4 +32,9 @@ class AppContainer extends Component {
   } 
 }
 
-export default AppContainer
+const AppHeader = styled.div`
+  text-align: center;
+  font-size: 36px;
+  margin: 50px;
+`
+
