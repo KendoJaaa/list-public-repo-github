@@ -2,6 +2,7 @@ import './App.css'
 
 import React, { Component } from 'react'
 
+import Loading from './Loading'
 import Pagination from './Pagination'
 import PropTypes from 'prop-types'
 import Table from './Table'
@@ -75,7 +76,7 @@ class App extends Component {
                 onNext={this.onNextPage}
               />
             </div>
-          ) : <div className='app__loading'> 'Loading...' </div>
+          ) : <Loading />
         }
       </div>
     )
