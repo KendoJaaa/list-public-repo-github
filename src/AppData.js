@@ -1,8 +1,5 @@
-import './App.css'
-
 import React, { Component } from 'react'
 
-import App from './App'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import axios from 'axios'
@@ -12,8 +9,8 @@ export default class AppData extends Component {
   fetching = false
 
   static propTypes = {
-    pageNumber: PropTypes.number.isRequired,
-    goToPage: PropTypes.func.isRequired
+    children: PropTypes.func.isRequired,
+    pageNumber: PropTypes.number.isRequired
   }
 
   state = {
@@ -51,13 +48,7 @@ export default class AppData extends Component {
   
   render () {
     const data = getDataByPage(this.state.data, this.props.pageNumber)
-    return (
-      <App 
-        data={data} 
-        pageNumber= {this.props.pageNumber}
-        goToPage= {this.props.goToPage}
-      />
-    )
+    return this.props.children(data)
   } 
 }
 
