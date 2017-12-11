@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect, Route, BrowserRouter as Router } from 'react-router-dom'
 
-import App from './App'
+import AppData from './AppData'
 
 class AppContainer extends Component {
   render () {
@@ -11,7 +11,7 @@ class AppContainer extends Component {
           <div className='app__header'>Github Public Repositories</div>
           <Route exact path='/' render={() => <Redirect to='/1' />} />
           <Route exact path='/:pageNumber' render={
-            ({ match, history }) => <App 
+            ({ match, history }) => <AppData 
               pageNumber={Number(match.params.pageNumber)}
               goToPage={(pageNumber) => history.push('/' + pageNumber)}
             />

@@ -1,6 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { getDataByPage } from './App'
+import { getDataByPage } from './AppData'
 
 describe('getDataByPage', () => {
   const mockData = Array(100).fill().map((v, index) => index + 1)
