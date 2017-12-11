@@ -10,6 +10,9 @@ import axios from 'axios'
 
 class App extends Component {
   
+  maxPage = 0
+  fetching = false
+
   static propTypes = {
     pageNumber: PropTypes.number.isRequired,
     goToPage: PropTypes.func.isRequired
@@ -20,19 +23,29 @@ class App extends Component {
   }
 
   componentWillMount () {
-    this.fecthData()
+    this.fetchData()
   }
 
-  fecthData = () => {
-    let url = 'https://api.github.com/repositories'
-    if (!_.isEmpty(this.state.data)) {
-      url += '?since=' + _.last(this.state.data).id
+  componentDidUpdate () {
+    this.fetchData()
+  }
+
+  fetchData = () => {
+    if (this.maxPage < this.props.pageNumber && !this.fetching) {  
+      this.fetching = true  
+      let url = 'https://api.github.com/repositories'
+      if (!_.isEmpty(this.state.data)) {
+        url += '?since=' + _.last(this.state.data).id
+      }
+      axios.get(url).then((response) => {
+        const data = _.concat(this.state.data, response.data)
+        this.setState({ data })
+        this.fetching = false
+        this.maxPage = _.floor(data.length / 10)
+        this.fetchData()
+      })
+
     }
-    axios.get(url).then((response) => {
-      const data = _.concat(this.state.data, response.data)
-      this.setState({ data })
-      this.maxpage = _.floor(data.length / 10)
-    })
   }
 
   onPreviousPage = () => {
