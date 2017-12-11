@@ -14,10 +14,11 @@ export default class Pagination extends Component {
   render() {
     return (
       <Container>
-        { this.props.currentPage !== 1 && 
+        { this.props.currentPage > 1 && 
           <Button onClick={this.props.onPrevious}>{'<'}</Button>}
         <PageNumber>{this.props.currentPage}</PageNumber>
-        <Button onClick={this.props.onNext}>{'>'}</Button> 
+        { this.props.currentPage < 100 && 
+          <Button onClick={this.props.onNext}>{'>'}</Button>}
       </Container>
     )
   } 
