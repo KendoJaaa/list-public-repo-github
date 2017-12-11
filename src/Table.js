@@ -15,6 +15,7 @@ export default class Table extends Component {
         <Name>Repo Name</Name>
         <Owner>Owner</Owner>
         <Description>Description</Description>
+        <Link>Link</Link>
       </Header>
     )
   }
@@ -31,6 +32,11 @@ export default class Table extends Component {
           <OwnerName>{data.owner.login}</OwnerName>
         </Owner>
         <Description>{data.description}</Description>
+        <Link>
+          <a href={data.html_url} target='_blank' >
+            <Icon src={require('./link.png')} />
+          </a>
+        </Link>
       </Row>   
     )
   }
@@ -67,19 +73,19 @@ const Row = styled.div`
   padding: 10px;
 `
 
-const Name = styled.div`
-  width: 150px;
+const Unit = styled.div`
   display: flex;
   align-items: center;
   padding-right: 10px;
   word-break: break-all;
 `
 
-const Owner = styled.div`
+const Name = Unit.extend`
   width: 150px;
-  display: flex;
-  align-items: center;
-  padding-right: 10px;
+`
+
+const Owner = Unit.extend`
+  width: 150px;
 `
 
 const OwnerAvatar = styled.img`
@@ -92,8 +98,16 @@ const OwnerName = styled.div`
   word-break: break-all;
 `
 
-const Description = styled.div`
+const Description = Unit.extend`
   flex: 1;
-  display: flex;
-  align-items: center;
+`
+
+const Link = Unit.extend`
+  width: 40px;
+  padding-right: 0;
+  justify-content: center;
+`
+const Icon = styled.img`
+  width: 30px;
+  height: 30px;
 `
