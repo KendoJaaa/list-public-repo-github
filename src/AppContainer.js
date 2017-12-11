@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect, Route, BrowserRouter as Router } from 'react-router-dom'
+import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import App from './App'
 import AppData from './AppData'
@@ -17,21 +17,26 @@ export default class AppContainer extends Component {
             />
             Github Public Repositories
           </AppHeader>
-          <Route exact path='/' render={() => <Redirect to='/1' />} />
-          <Route exact path='/:pageNumber' render={
-            ({ match, history }) => {
-              const pageNumber = Number(match.params.pageNumber)
-              return (
-                <AppData pageNumber={pageNumber}>
-                  {(data) => <App
-                    data={data}
-                    pageNumber={pageNumber}
-                    goToPage={(pageNumber) => history.push('/' + pageNumber)}
-                  />}
-                </AppData>
-              )
-            }
-          }/>
+          <Switch>
+            <Route exact path='/' render={() => <Redirect to='/1' />} />
+            <Route exact path='/:pageNumber' render={
+              ({ match, history }) => {
+                const pageNumber = Number(match.params.pageNumber)
+                if (isNaN(pageNumber)) return <Redirect to='/1' />
+                if (pageNumber < 1 || pageNumber > 100) return <Redirect to='/1' />
+                return (
+                  <AppData pageNumber={pageNumber}>
+                    {(data) => <App
+                      data={data}
+                      pageNumber={pageNumber}
+                      goToPage={(pageNumber) => history.push('/' + pageNumber)}
+                    />}
+                  </AppData>
+                )
+              }
+            }/>
+            <Redirect to="/1" />
+          </Switch>
         </Container>
       </Router>
     )
